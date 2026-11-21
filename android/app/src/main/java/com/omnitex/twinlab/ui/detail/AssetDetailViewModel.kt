@@ -44,7 +44,9 @@ class AssetDetailViewModel(
 
     val twin: StateFlow<TwinState> = _state
         .map { s ->
-            TwinMapping.stateFrom(s.readings, s.device?.thresholds ?: emptyMap(), s.lastMsgAgeMs)
+            // Until thresholds are known, every reading looks in-range — keep the twin neutral instead.
+            if (s.device == null) TwinMapping.stateFrom(emptyMap(), emptyMap(), s.lastMsgAgeMs)
+            else TwinMapping.stateFrom(s.readings, s.device.thresholds, s.lastMsgAgeMs)
         }
         .stateIn(
             viewModelScope,
@@ -61,7 +63,7 @@ class AssetDetailViewModel(
     }
 
     private fun recomputeHealth(s: DetailUiState): Health =
-        healthStatus(s.readings, s.device?.thresholds ?: emptyMap())
+        s.device?.let { healthStatus(s.readings, it.thresholds) } ?: Health.UNKNOWN
 
     private fun loadStatic() = viewModelScope.launch {
         val api = apiFlow.value ?: run {
@@ -70,6 +72,11 @@ class AssetDetailViewModel(
         }
         try {
             val device = api.getDevices().find { it.device_id == deviceId }
+            // Publish the device (name + thresholds) before the slower alert/history fetches.
+            _state.update { st ->
+                val next = st.copy(device = device, error = null)
+                next.copy(health = recomputeHealth(next))
+            }
             val alerts = runCatching { api.getDeviceAlerts(deviceId, 50) }.getOrDefault(emptyList())
             val history = device?.sensors.orEmpty().associateWith { sensor ->
                 runCatching { api.getReadings(deviceId, sensor, limit = 60) }.getOrDefault(emptyList())

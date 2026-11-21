@@ -16,8 +16,10 @@ data class TwinState(
 
 object TwinMapping {
     // --- tunable knobs (guesses until real sensor magnitudes are measured) ---
-    const val SHAKE_GAIN = 0.01f
-    const val SHAKE_MAX = 0.05f
+    // vibration is in g (~0.05 running, alert > 0.15). TwinView scales by 1200 px,
+    // so 0.2 g -> ~7 px jitter, capped at ~12 px.
+    const val SHAKE_GAIN = 0.03f
+    const val SHAKE_MAX = 0.01f
     const val TEMP_COLOR_MIN = 20.0     // fallback band when temperature has no threshold
     const val TEMP_COLOR_MAX = 80.0
     const val RUNNING_RPM = 900f

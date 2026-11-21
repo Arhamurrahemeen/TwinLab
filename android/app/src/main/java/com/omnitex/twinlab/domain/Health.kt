@@ -5,7 +5,7 @@ import com.omnitex.twinlab.data.Bounds
 enum class Health { OK, WARNING, CRITICAL, UNKNOWN }
 
 /** Sensors whose max-breach the backend treats as critical (backend/alerts.py _CRITICAL_MAX). */
-private val CRITICAL_SENSORS = setOf("temperature", "load_current")
+private val CRITICAL_SENSORS = setOf("temperature", "load_current", "vibration")
 
 /**
  * Mirrors backend/alerts.py evaluate(): a reading past max/min on a critical

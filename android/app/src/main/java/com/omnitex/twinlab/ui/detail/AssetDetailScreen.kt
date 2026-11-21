@@ -62,10 +62,19 @@ fun AssetDetailScreen(vm: AssetDetailViewModel, onBack: () -> Unit) {
             item { TwinView(twin) }
 
             item {
-                val signalLost = s.lastMsgAgeMs > SIGNAL_LOST_MS
+                val connecting = s.device == null || s.lastMsgAgeMs == Long.MAX_VALUE
+                val signalLost = !connecting && s.lastMsgAgeMs > SIGNAL_LOST_MS
                 Text(
-                    if (signalLost) "SIGNAL LOST" else s.health.label(),
-                    color = if (signalLost) MaterialTheme.colorScheme.error else s.health.color(),
+                    when {
+                        connecting -> "CONNECTING…"
+                        signalLost -> "SIGNAL LOST"
+                        else -> s.health.label()
+                    },
+                    color = when {
+                        connecting -> MaterialTheme.colorScheme.onSurfaceVariant
+                        signalLost -> MaterialTheme.colorScheme.error
+                        else -> s.health.color()
+                    },
                     fontWeight = FontWeight.Bold,
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.padding(bottom = 8.dp),

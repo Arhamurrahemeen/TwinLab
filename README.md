@@ -61,7 +61,7 @@ Two products, one engine.
 > He gets a push notification on the TwinLab app (where he can also glance at the
 > asset list and its digital twin). The dashboard is for his ops head or son.
 
-`📍 Karachi, Pakistan` &nbsp;·&nbsp; `🏢 OmniteX` &nbsp;·&nbsp; `🎯 NIC Hyderabad / NIC Karachi`
+`📍 Karachi, Pakistan` &nbsp;·&nbsp; `🏢 OmniteX` &nbsp;·&nbsp; `🎯 ORIC DUET RPDU · Cohort 2`
 
 ---
 

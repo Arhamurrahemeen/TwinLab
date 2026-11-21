@@ -126,6 +126,14 @@ export default function DeviceControl({ device }) {
           onChange={(v) => handleSliderChange("humidity", v)}
           onCommit={(v)  => handleSliderCommit("humidity", v)}
         />
+        <SliderRow
+          label="Vibration"
+          unit="g"
+          value={ctrl?.base_values?.vibration ?? 0.05}
+          min={0} max={1} step={0.01} decimals={2}
+          onChange={(v) => handleSliderChange("vibration", v)}
+          onCommit={(v)  => handleSliderCommit("vibration", v)}
+        />
       </div>
 
       {/* Injector buttons */}
@@ -150,7 +158,7 @@ export default function DeviceControl({ device }) {
   )
 }
 
-function SliderRow({ label, unit, value, min, max, onChange, onCommit }) {
+function SliderRow({ label, unit, value, min, max, step = 1, decimals = 0, onChange, onCommit }) {
   return (
     <div className="slider-row">
       <span className="slider-label">{label}</span>
@@ -158,13 +166,13 @@ function SliderRow({ label, unit, value, min, max, onChange, onCommit }) {
         type="range"
         min={min}
         max={max}
-        step={1}
+        step={step}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         onMouseUp={(e) => onCommit(e.target.value)}
         onTouchEnd={(e) => onCommit(e.target.value)}
       />
-      <span className="slider-value">{Number(value).toFixed(0)} {unit}</span>
+      <span className="slider-value">{Number(value).toFixed(decimals)} {unit}</span>
     </div>
   )
 }

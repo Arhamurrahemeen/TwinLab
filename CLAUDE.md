@@ -8,7 +8,7 @@
 
 ## 1. What TwinLab is
 
-**TwinLab** (one word, capital T and L — *not* "TwinLab AI") is a **Predictive Maintenance (PdM) platform** — non-invasive condition monitoring + a live digital-twin view of critical machines, bilingual push alerts on its own Android app, priced in PKR. Category corrected from "SCAPM" 2026-09-05 (see vault `TwinLab_Identity.md`) — PdM is the term the real comparables (Augury, Petasense) use; "digital twin" is a feature, not the category. Architecturally **APM 4.0** (wireless condition monitoring + standalone cloud, non-invasive install) vs the incumbents' APM 3.0 (Siemens MindSphere / GE Predix / IBM Maximo / PTC ThingWorx — deep OT integration required). Built by **OmniteX** (Pakistan; founder Muhammad Arham Rajput). Currently past Phase 15 of the MVP v2 rebuild, pitching NIC Karachi (Final Round) and SEIC Karachi (Cohort 2).
+**TwinLab** (one word, capital T and L — *not* "TwinLab AI") is a **Predictive Maintenance (PdM) platform** — non-invasive condition monitoring + a live digital-twin view of critical machines, bilingual push alerts on its own Android app, priced in PKR. Category corrected from "SCAPM" 2026-09-05 (see vault `TwinLab_Identity.md`) — PdM is the term the real comparables (Augury, Petasense) use; "digital twin" is a feature, not the category. Architecturally **APM 4.0** (wireless condition monitoring + standalone cloud, non-invasive install) vs the incumbents' APM 3.0 (Siemens MindSphere / GE Predix / IBM Maximo / PTC ThingWorx — deep OT integration required). Built by **OmniteX** (Pakistan; founder Muhammad Arham Rajput). Currently past Phase 18 of the MVP v2 rebuild. **No active incubation track** — NIC Hyderabad C9, NIC Karachi C16 and SEIC Karachi C2 all closed, not selected (confirmed 2026-10-06). OmniteX sits in ORIC DUET RPDU Cohort 2 (NASTP office).
 
 **Lead vertical: Textile + FMCG enterprise plants** (locked 2026-08-10) — SCADA-present plants with non-invasive coverage gaps (gensets, compressors, chillers, HVAC, older lines), running in parallel with an SME feeder motion (hospitals, guest houses, general SME). **Genset is a supported machine and feeder/service offering, no longer the wedge.**
 
@@ -202,6 +202,7 @@ History: `phase-1..4` = original build (done). v2 rebuild continues as **phase-5
 | 16 | `phase/phase-16.md` | Vibration threshold alert rule (critical severity) + vibration-driven run/stop detection, giving hardware nodes a working run-hours meter for the first time (no CT clamp needed). `VIB_RUNNING_G` and the vibration alert threshold are uncalibrated placeholders pending a real spinning-machine mount. | ✅ |
 | 17 | `phase/phase-17.md` | Digital twin visual redesign: flat rounded-rect + oversized fan → isometric 3-face shading, neon status rim, properly-inset 5-blade fan. Ported from a Claude Design mockup into `TwinView.kt`, same `TwinState` contract. Dropped a duplicate "SIGNAL LOST" text (`AssetDetailScreen` already shows it). | ✅ |
 | 18 | `phase/phase-18.md` | App-wide theme refresh: shared `TwinLabTopBar` (shadow + tinted icons) across all 4 screens, card-based asset list + alert rows, glow-ring status dots, warmer background. Launcher icon artwork scaled to 80% for breathing room. | ✅ |
+| 19 | `phase/phase-19.md` | Twin shake fix: simulator gets a real g-scale `vibration` branch (was publishing ~53 "g" fallback), sim-control Vibration slider, `TwinMapping` shake gain/cap retuned to g-scale. | ⬜ |
 
 Update the Status column (⬜ → ✅) as each phase's "Actually achieved" is written. Use ⏸ for phases explicitly deferred (scope moved elsewhere or postponed to a later cycle).
 
@@ -209,13 +210,9 @@ Update the Status column (⬜ → ✅) as each phase's "Actually achieved" is wr
 
 ## 9. Team (no equity discussion in repo files)
 
-- **Muhammad Arham Rajput** — Founder & CEO (Technical). Architecture, MQTT, InfluxDB/MongoDB, ESP32, Groq, this repo.
-- **Wahaj** — Head of Product Engineering. React dashboard, FastAPI, Mongo schema.
-- **Kaif Alam** — Co-founder, Growth & BD. Brand, BD, NIC paperwork, customer discovery.
-- **Muskan Hanif** — Head of Design. Visual identity, dashboard UI, alert templates.
-- **Abaan (Muhammad Abban Khawaja)** — Engineering & Security. Scoped under Arham/Wahaj.
+- **Muhammad Arham Rajput** — sole Founder & CEO of OmniteX. Owns everything: architecture, firmware, backend, Android app, this repo, customers, finance.
 
-Equity/vesting is deferred until after the NIC pitch — no equity promises in any repo file.
+Earlier contributors (Wahaj, Kaif, Muskan, Abaan) are **not** the team — don't cite or assign them. Older phase files that name them are history only. No equity promises in any repo file.
 
 ---
 
@@ -225,4 +222,4 @@ Remote: `https://github.com/Arhamurrahemeen/TwinLab-AI.git`
 
 ---
 
-*Last updated: Phase 15 (2026-09-13) — MAC-derived device IDs, sensor picker/discover/delete UI, and the firmware's first real flash-and-verify (`TL-B49244`, confirmed live via `mosquitto_sub` — no longer simulator-only). Firebase project is live (`google-services.json` + `backend/fcm-service-account.json` both in place, gitignored) and the Android debug APK is compiled. **End-to-end push re-verified 2026-09-13** — full pipeline (simulator injector → threshold alert → `push.py` → FCM) fired against the one real registered token, backend logged `sent 1/1`, the persisted alert carries `push_sent: true`, and Arham confirmed the notification rendered on the physical phone (see `phase/rd_benchmarks.md`). Fully confirmed, not just API-accepted. Category corrected **SCAPM → Predictive Maintenance (PdM)** and the **generator-first wedge killed** in favor of Textile+FMCG enterprise (2026-09-05/2026-08-10, per vault `TwinLab_Identity.md`) — genset is now a supported machine/feeder offering, not the entry point. Groq-only, Isolation Forest still parked; non-invasive install narrative preserved.*
+*Last updated: 2026-10-19 (Phase 19 in progress) — docs synced with vault: all incubation tracks closed (none selected), Arham is the sole founder, Phase 16 vibration alert + run-hours is live truth, alerts go only through FCM push to the TwinLab Android app (no Twilio). End-to-end push verified on a physical phone 2026-09-13 (`phase/rd_benchmarks.md`).*

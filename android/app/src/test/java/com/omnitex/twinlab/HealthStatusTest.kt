@@ -34,6 +34,12 @@ class HealthStatusTest {
     @Test fun sensorWithoutThreshold_isIgnored() =
         assertEquals(Health.OK, healthStatus(mapOf("vibration" to 9.9), thr))
 
+    @Test fun vibrationOverMax_isCritical() =
+        assertEquals(
+            Health.CRITICAL,
+            healthStatus(mapOf("vibration" to 0.4), thr + ("vibration" to Bounds(min = null, max = 0.15))),
+        )
+
     @Test fun criticalWinsOverWarning() =
         assertEquals(
             Health.CRITICAL,

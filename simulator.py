@@ -123,6 +123,13 @@ def _compute_values(device_id: str, sensors: list, ctrl: dict, t: int) -> dict |
             base_hum = base.get("humidity", 55.0)
             values[sensor] = (round(base_hum + random.uniform(-2, 2), 2), "%")
 
+        elif sensor == "vibration":
+            # Same scale as the firmware: EMA of |accel| - 1g, in g (~0.0 idle, alert > 0.15)
+            base_vib = base.get("vibration", 0.05)
+            if overload:
+                base_vib = max(base_vib, 0.4)
+            values[sensor] = (round(max(0.0, base_vib + random.uniform(-0.01, 0.01)), 3), "g")
+
         else:
             values[sensor] = _sensor_value(sensor, t)
 
