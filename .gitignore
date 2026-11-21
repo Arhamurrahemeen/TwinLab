@@ -40,3 +40,7 @@ mosquitto/log/
 *.zip
 
 git-commands.md 
+# Demo pipeline: renders, recordings, deps (regenerate with demo/record.mjs + remotion render)
+demo/out/
+demo/logs/
+node_modules/

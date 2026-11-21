@@ -1,0 +1,192 @@
+{
+ "devices": [
+  {
+   "_id": {
+    "$oid": "6ab4118abf0f5fb6378dc456"
+   },
+   "device_id": "weather-station-490d99",
+   "name": "Weather Station",
+   "location": "Lab 2",
+   "sensors": [
+    "temperature",
+    "humidity",
+    "vibration"
+   ],
+   "description": null,
+   "source": "simulator",
+   "thresholds": {
+    "temperature": {
+     "min": null,
+     "max": 40.0
+    },
+    "humidity": {
+     "min": 20.0,
+     "max": 90.0
+    },
+    "vibration": {
+     "min": null,
+     "max": 0.2
+    }
+   },
+   "status": "inactive",
+   "asset_type": null,
+   "plant": null,
+   "criticality": "medium",
+   "warranty_expiry": null,
+   "purchase_date": null,
+   "vendor_name": null,
+   "vendor_whatsapp": null,
+   "contacts": [],
+   "owner": "alicia@twinlab.io",
+   "created_at": {
+    "$date": "2026-09-23T17:51:06.816Z"
+   },
+   "updated_at": {
+    "$date": "2026-11-13T12:39:03.120Z"
+   },
+   "last_run_hours_update": {
+    "$date": "2026-11-13T13:15:06.636Z"
+   },
+   "run_hours": 25.23113802949589
+  },
+  {
+   "_id": {
+    "$oid": "6ab4119e343a5b5e4778fd3e"
+   },
+   "device_id": "aquaponics-twin-dd4eec",
+   "name": "Aquaponics Twin",
+   "location": "Lab 2",
+   "sensors": [
+    "temperature",
+    "humidity",
+    "vibration"
+   ],
+   "description": null,
+   "source": "simulator",
+   "thresholds": {
+    "temperature": {
+     "min": null,
+     "max": 40.0
+    },
+    "humidity": {
+     "min": 20.0,
+     "max": 90.0
+    },
+    "vibration": {
+     "min": null,
+     "max": 0.2
+    }
+   },
+   "status": "inactive",
+   "asset_type": null,
+   "plant": null,
+   "criticality": "medium",
+   "warranty_expiry": null,
+   "purchase_date": null,
+   "vendor_name": null,
+   "vendor_whatsapp": null,
+   "contacts": [],
+   "owner": "brianna@twinlab.io",
+   "created_at": {
+    "$date": "2026-09-23T17:51:26.270Z"
+   },
+   "updated_at": {
+    "$date": "2026-11-13T12:39:03.410Z"
+   },
+   "last_run_hours_update": {
+    "$date": "2026-11-13T13:15:06.636Z"
+   },
+   "run_hours": 25.22652590764893
+  },
+  {
+   "_id": {
+    "$oid": "6ab4135e343a5b5e4778fd42"
+   },
+   "device_id": "TL-REHEARSAL",
+   "name": "Rehearsal Kit",
+   "location": "Demo Bench",
+   "sensors": [
+    "temperature",
+    "humidity",
+    "vibration"
+   ],
+   "description": null,
+   "source": "hardware",
+   "thresholds": {},
+   "status": "inactive",
+   "asset_type": null,
+   "plant": null,
+   "criticality": "medium",
+   "warranty_expiry": null,
+   "purchase_date": null,
+   "vendor_name": null,
+   "vendor_whatsapp": null,
+   "contacts": [],
+   "owner": "alicia@twinlab.io",
+   "created_at": {
+    "$date": "2026-09-23T17:58:54.201Z"
+   },
+   "updated_at": {
+    "$date": "2026-11-13T12:39:03.691Z"
+   },
+   "last_run_hours_update": {
+    "$date": "2026-11-13T13:15:06.636Z"
+   },
+   "run_hours": 0.0
+  }
+ ],
+ "sim_control": [
+  {
+   "_id": {
+    "$oid": "6ab4128b343a5b5e4778fd3f"
+   },
+   "device_id": "weather-station-490d99",
+   "base_values": {
+    "temperature": 75,
+    "humidity": 100,
+    "vibration": 0.12
+   },
+   "inject": {
+    "overheat": {
+     "active": true,
+     "until_ts": 1792829749011
+    },
+    "vibration": {
+     "active": true,
+     "until_ts": 1790186310460
+    },
+    "offline": {
+     "active": false,
+     "until_ts": 0
+    }
+   },
+   "updated_at": "2026-10-24T09:21:55.522903+00:00",
+   "generator_on": true
+  },
+  {
+   "_id": {
+    "$oid": "6ab4136d343a5b5e4778fd43"
+   },
+   "device_id": "aquaponics-twin-dd4eec",
+   "base_values": {
+    "temperature": 30,
+    "humidity": 55
+   },
+   "inject": {
+    "overheat": {
+     "active": false,
+     "until_ts": 0
+    },
+    "vibration": {
+     "active": false,
+     "until_ts": 0
+    },
+    "offline": {
+     "active": false,
+     "until_ts": 0
+    }
+   },
+   "updated_at": "2026-10-24T08:14:48.965094+00:00"
+  }
+ ]
+}
