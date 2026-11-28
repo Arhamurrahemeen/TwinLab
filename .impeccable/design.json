@@ -1,0 +1,518 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-27T19:15:07.378437+00:00",
+  "title": "Design System: TwinLab",
+  "extensions": {
+    "colorMeta": {
+      "indigo": {
+        "role": "primary",
+        "displayName": "Dye-Vat Indigo",
+        "canonical": "#1B2F5E",
+        "tonalRamp": [
+          "#1A2133",
+          "#28385C",
+          "#324D8A",
+          "#3860BD",
+          "#6382CA",
+          "#92A6D3",
+          "#C1CBE1",
+          "#EFF1F5"
+        ]
+      },
+      "indigo-2": {
+        "role": "primary",
+        "displayName": "Indigo Raised",
+        "canonical": "#243C73",
+        "tonalRamp": [
+          "#1B2232",
+          "#2A395B",
+          "#354E88",
+          "#3C62B9",
+          "#6683C7",
+          "#94A7D1",
+          "#C2CBE0",
+          "#EFF1F5"
+        ]
+      },
+      "indigo-ink": {
+        "role": "primary",
+        "displayName": "Indigo Mist",
+        "canonical": "#C9D4EA",
+        "tonalRamp": [
+          "#1C2330",
+          "#2E3B57",
+          "#3B5381",
+          "#4669AF",
+          "#6D89BF",
+          "#99AACC",
+          "#C5CDDE",
+          "#F0F1F5"
+        ]
+      },
+      "card": {
+        "role": "neutral",
+        "displayName": "Card Mount",
+        "canonical": "#EEF1F4",
+        "tonalRamp": [
+          "#21262B",
+          "#38424C",
+          "#4D5E6F",
+          "#617A94",
+          "#8296AA",
+          "#A6B2BF",
+          "#CBD1D7",
+          "#F1F2F4"
+        ]
+      },
+      "tile": {
+        "role": "neutral",
+        "displayName": "Swatch Tile",
+        "canonical": "#F7F9FB",
+        "tonalRamp": [
+          "#1F262E",
+          "#334252",
+          "#445E79",
+          "#537AA2",
+          "#7796B6",
+          "#9FB2C6",
+          "#C8D1DB",
+          "#F0F2F4"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "White",
+        "canonical": "#FFFFFF",
+        "tonalRamp": [
+          "#262626",
+          "#424242",
+          "#5E5E5E",
+          "#7A7A7A",
+          "#969696",
+          "#B2B2B2",
+          "#D1D1D1",
+          "#F2F2F2"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#C6CFDB",
+        "tonalRamp": [
+          "#21262B",
+          "#38414D",
+          "#4C5C70",
+          "#5F7795",
+          "#8193AC",
+          "#A5B1C0",
+          "#CBD0D7",
+          "#F1F2F4"
+        ]
+      },
+      "rule-2": {
+        "role": "neutral",
+        "displayName": "Fine Hairline",
+        "canonical": "#DCE2EA",
+        "tonalRamp": [
+          "#21252C",
+          "#36414E",
+          "#4A5C72",
+          "#5D7698",
+          "#7F93AE",
+          "#A4B0C1",
+          "#CAD0D8",
+          "#F1F2F4"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#14203A",
+        "tonalRamp": [
+          "#1B2231",
+          "#2B3A59",
+          "#385085",
+          "#4065B5",
+          "#6986C4",
+          "#96A8CF",
+          "#C3CCDF",
+          "#EFF1F5"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Ink Soft",
+        "canonical": "#55627A",
+        "tonalRamp": [
+          "#22252A",
+          "#3A404B",
+          "#505A6D",
+          "#657490",
+          "#8691A7",
+          "#A8AFBD",
+          "#CCD0D6",
+          "#F1F2F3"
+        ]
+      },
+      "danger": {
+        "role": "status",
+        "displayName": "Alarm Red",
+        "canonical": "#C8281E",
+        "tonalRamp": [
+          "#371816",
+          "#65241F",
+          "#992A23",
+          "#D32C22",
+          "#DB5A52",
+          "#DD8D88",
+          "#E6BFBC",
+          "#F7EEEE"
+        ]
+      },
+      "danger-2": {
+        "role": "status",
+        "displayName": "Deep Alarm",
+        "canonical": "#A51E16",
+        "tonalRamp": [
+          "#371715",
+          "#66221E",
+          "#9B2821",
+          "#D6291F",
+          "#DE574F",
+          "#DF8B86",
+          "#E7BEBB",
+          "#F7EEEE"
+        ]
+      },
+      "check": {
+        "role": "status",
+        "displayName": "Turmeric Amber",
+        "canonical": "#E8A317",
+        "tonalRamp": [
+          "#382C14",
+          "#694F1C",
+          "#A0751D",
+          "#DC9C18",
+          "#E3B04A",
+          "#E2C383",
+          "#E8D9BA",
+          "#F7F4ED"
+        ]
+      },
+      "check-tint": {
+        "role": "status",
+        "displayName": "Amber Tint",
+        "canonical": "#F6E3B4",
+        "tonalRamp": [
+          "#382E15",
+          "#67521D",
+          "#9D7920",
+          "#D8A21D",
+          "#E0B64D",
+          "#E0C685",
+          "#E7DBBB",
+          "#F7F4EE"
+        ]
+      },
+      "check-ink": {
+        "role": "status",
+        "displayName": "Amber Ink",
+        "canonical": "#7A5200",
+        "tonalRamp": [
+          "#3C2E10",
+          "#725313",
+          "#AE7A0F",
+          "#F2A403",
+          "#F4B739",
+          "#EDC778",
+          "#EDDBB5",
+          "#F8F4EC"
+        ]
+      },
+      "ok": {
+        "role": "status",
+        "displayName": "Mill Green",
+        "canonical": "#2F8F5B",
+        "tonalRamp": [
+          "#1B3125",
+          "#2A5A40",
+          "#36875B",
+          "#3EB775",
+          "#67C693",
+          "#95D0B0",
+          "#C3DFD0",
+          "#EFF5F2"
+        ]
+      },
+      "nosig": {
+        "role": "status",
+        "displayName": "Slate Grey",
+        "canonical": "#7A8591",
+        "tonalRamp": [
+          "#242628",
+          "#3E4247",
+          "#575E66",
+          "#6F7A86",
+          "#8E969F",
+          "#ADB2B8",
+          "#CED1D4",
+          "#F2F2F3"
+        ]
+      },
+      "focus": {
+        "role": "utility",
+        "displayName": "Focus Blue",
+        "canonical": "#3D7BD9",
+        "tonalRamp": [
+          "#172335",
+          "#233C62",
+          "#295394",
+          "#2A6ACB",
+          "#588AD5",
+          "#8BAADA",
+          "#BECDE4",
+          "#EEF1F6"
+        ]
+      },
+      "selected": {
+        "role": "utility",
+        "displayName": "Selected",
+        "canonical": "#D6DEF0",
+        "tonalRamp": [
+          "#1C2231",
+          "#2C3A58",
+          "#395083",
+          "#4365B2",
+          "#6B86C2",
+          "#98A8CD",
+          "#C4CCDE",
+          "#F0F1F5"
+        ]
+      },
+      "lab-on-indigo": {
+        "role": "brand",
+        "displayName": "Lab Teal on Indigo",
+        "canonical": "#8FC3D4",
+        "tonalRamp": [
+          "#1C2B30",
+          "#2D4D57",
+          "#3B7082",
+          "#4595B0",
+          "#6DACC0",
+          "#99C0CC",
+          "#C5D7DE",
+          "#F0F4F5"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Machine-detail headline reading; Floor view wordmark and clock."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Machine name on the detail stage, big fleet tile, TV tile."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Tile names, readings, feed and modal headings."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Paragraphs (max 62ch) and secondary text."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Uppercase table column headers, threshold column labels, SIMULATED/REAL tag."
+      },
+      "status": {
+        "displayName": "Status word",
+        "purpose": "Status chip word; sm 11px, md 20px, lg 22px, xl clamp(34px,4vw,56px), tv clamp(28px,2.6vw,46px), xxl 52px."
+      }
+    },
+    "shadows": [
+      {
+        "name": "pin-lift",
+        "value": "0 4px 12px rgba(20, 32, 58, .18)",
+        "purpose": "Part label pins over the 3D twin."
+      },
+      {
+        "name": "floating-panel",
+        "value": "0 24px 60px rgba(14, 20, 36, .35)",
+        "purpose": "Modals and the chat panel."
+      },
+      {
+        "name": "fab",
+        "value": "0 10px 24px rgba(14, 20, 36, .3)",
+        "purpose": "Chat floating button."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(.16, 1, .3, 1)",
+        "purpose": "Ribbon swatch hover lift (.25s)."
+      },
+      {
+        "name": "throb",
+        "value": "1.6s ease-in-out infinite (web); 800ms tween, reverse (Android)",
+        "purpose": "DANGER chip fill between #C8281E and #A51E16; off under reduced motion."
+      },
+      {
+        "name": "live-pulse",
+        "value": "2s ease-out infinite",
+        "purpose": "Live-connection dot ring in the top bar."
+      },
+      {
+        "name": "state",
+        "value": "background .2s",
+        "purpose": "Hover fills on tabs, tiles, buttons."
+      },
+      {
+        "name": "twin-run",
+        "value": "'run' AnimationClip on spin_ nodes",
+        "purpose": "Plays only while the backend reports the machine running; DANGER adds a shake and pulsing part glow."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "1180px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Status Chip: DANGER",
+      "kind": "chip",
+      "refersTo": "chip-danger",
+      "description": "Solid red, white word, throbs to deep red. Worst status.",
+      "html": "<span class=\"ds-chip ds-chip--danger\"><svg viewBox=\"0 0 20 20\" aria-hidden=\"true\"><circle cx=\"10\" cy=\"10\" r=\"9\" fill=\"currentColor\" opacity=\".25\"/><rect x=\"4\" y=\"8.5\" width=\"12\" height=\"3\" fill=\"currentColor\"/></svg><span>DANGER</span></span>",
+      "css": ".ds-chip{display:inline-flex;align-items:center;justify-content:center;gap:.35em;font-family:Archivo,system-ui,sans-serif;font-weight:800;letter-spacing:.02em;border:2px solid;line-height:1;white-space:nowrap;font-size:20px;height:38px;min-width:150px}.ds-chip svg{width:1em;height:1em;flex:none}.ds-chip>span{padding:2px 7px}.ds-chip--danger{background:#C8281E;border-color:#C8281E;color:#fff;animation:ds-throb 1.6s ease-in-out infinite}@keyframes ds-throb{50%{background:#A51E16}}@media (prefers-reduced-motion:reduce){.ds-chip--danger{animation:none}}"
+    },
+    {
+      "name": "Status Chip: CHECK",
+      "kind": "chip",
+      "refersTo": "chip-check",
+      "description": "Amber hatch, ink word in a white window.",
+      "html": "<span class=\"ds-chip ds-chip--check\"><svg viewBox=\"0 0 20 20\" aria-hidden=\"true\"><path d=\"M10 2 19 18H1Z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"/><rect x=\"9\" y=\"7\" width=\"2\" height=\"6\" fill=\"currentColor\"/><rect x=\"9\" y=\"14.5\" width=\"2\" height=\"2\" fill=\"currentColor\"/></svg><span>CHECK</span></span>",
+      "css": ".ds-chip{display:inline-flex;align-items:center;justify-content:center;gap:.35em;font-family:Archivo,system-ui,sans-serif;font-weight:800;letter-spacing:.02em;border:2px solid;line-height:1;white-space:nowrap;font-size:20px;height:38px;min-width:150px}.ds-chip svg{width:1em;height:1em;flex:none}.ds-chip>span{padding:2px 7px}.ds-chip--check{background:repeating-linear-gradient(135deg,#E8A317 0 6px,#F6E3B4 6px 12px);border-color:#E8A317;color:#14203A}.ds-chip--check>span{background:#fff}"
+    },
+    {
+      "name": "Status Chip: OK",
+      "kind": "chip",
+      "refersTo": "chip-ok",
+      "description": "White ground, green outline and word; green is never a fill.",
+      "html": "<span class=\"ds-chip ds-chip--ok\"><svg viewBox=\"0 0 20 20\" aria-hidden=\"true\"><path d=\"M4 10.5 8 14.5 16 5.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.6\"/></svg><span>OK</span></span>",
+      "css": ".ds-chip{display:inline-flex;align-items:center;justify-content:center;gap:.35em;font-family:Archivo,system-ui,sans-serif;font-weight:800;letter-spacing:.02em;border:2px solid;line-height:1;white-space:nowrap;font-size:20px;height:38px;min-width:150px}.ds-chip svg{width:1em;height:1em;flex:none}.ds-chip>span{padding:2px 7px}.ds-chip--ok{background:#fff;border-color:#2F8F5B;color:#2F8F5B}"
+    },
+    {
+      "name": "Status Chip: NO SIGNAL",
+      "kind": "chip",
+      "refersTo": "chip-no-signal",
+      "description": "Grey dot grid on card mount, ink word in a white window.",
+      "html": "<span class=\"ds-chip ds-chip--nosig\"><svg viewBox=\"0 0 20 20\" aria-hidden=\"true\"><path d=\"M3 3 17 17M17 3 3 17\" stroke=\"currentColor\" stroke-width=\"2.4\"/></svg><span>NO SIGNAL</span></span>",
+      "css": ".ds-chip{display:inline-flex;align-items:center;justify-content:center;gap:.35em;font-family:Archivo,system-ui,sans-serif;font-weight:800;letter-spacing:.02em;border:2px solid;line-height:1;white-space:nowrap;font-size:20px;height:38px;min-width:150px}.ds-chip svg{width:1em;height:1em;flex:none}.ds-chip>span{padding:2px 7px}.ds-chip--nosig{background:radial-gradient(#7A8591 1.4px,transparent 1.6px) 0 0/8px 8px,#EEF1F4;border-color:#7A8591;color:#14203A}.ds-chip--nosig>span{background:#fff}"
+    },
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Indigo action button, 4px radius.",
+      "html": "<button class=\"ds-btn\">Save machine</button>",
+      "css": ".ds-btn{font-family:Archivo,system-ui,sans-serif;font-weight:700;font-size:15px;padding:11px 18px;border:0;border-radius:4px;background:#1B2F5E;color:#fff;cursor:pointer;transition:background .2s}.ds-btn:hover{background:#243C73}.ds-btn:focus-visible{outline:3px solid #3D7BD9;outline-offset:2px}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "White button with hairline border, for in-stage controls.",
+      "html": "<button class=\"ds-btn-s\">Reset view</button>",
+      "css": ".ds-btn-s{font-family:Archivo,system-ui,sans-serif;background:#fff;border:1px solid #C6CFDB;padding:8px 12px;font-weight:600;font-size:13px;border-radius:4px;color:#14203A;cursor:pointer}.ds-btn-s:hover{border-color:#55627A}.ds-btn-s:focus-visible{outline:3px solid #3D7BD9;outline-offset:2px}"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "White field, hairline stroke, focus-blue ring.",
+      "html": "<label class=\"ds-field\"><span>Machine name</span><input class=\"ds-input\" value=\"Standby genset\"></label>",
+      "css": ".ds-field{display:flex;flex-direction:column;gap:6px;font-family:Archivo,system-ui,sans-serif;}.ds-field>span{font-weight:700;font-size:13px;color:#14203A}.ds-input{font:inherit;font-size:15px;padding:9px 11px;border:1px solid #C6CFDB;border-radius:4px;background:#fff;color:#14203A}.ds-input:focus{outline:2px solid #3D7BD9;outline-offset:0;border-color:#3D7BD9}"
+    },
+    {
+      "name": "Top Bar",
+      "kind": "nav",
+      "refersTo": "top-bar",
+      "description": "Indigo shell bar: wordmark, plant tabs, live indicator.",
+      "html": "<nav class=\"ds-top\"><span class=\"ds-wm\">Twin<b>Lab</b></span><button class=\"ds-tab\" aria-pressed=\"true\">NFL SITE Karachi</button><button class=\"ds-tab\" aria-pressed=\"false\">All plants</button><span class=\"ds-live\"><i></i>Live</span></nav>",
+      "css": ".ds-top{height:64px;background:#1B2F5E;display:flex;align-items:center;padding:0 28px;gap:24px;color:#fff;font-family:Archivo,system-ui,sans-serif;}.ds-wm{font-weight:800;font-size:24px;letter-spacing:-.01em}.ds-wm b{color:#8FC3D4}.ds-tab{font:inherit;font-weight:600;font-size:15px;padding:8px 14px;color:#C9D4EA;background:none;border:0;border-radius:4px;cursor:pointer;transition:background .2s}.ds-tab:hover{background:#243C73}.ds-tab[aria-pressed=true]{background:#fff;color:#1B2F5E}.ds-tab:focus-visible{outline:3px solid #3D7BD9;outline-offset:2px}.ds-live{margin-left:auto;display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:15px;color:#C9D4EA}.ds-live i{width:10px;height:10px;border-radius:50%;background:#7FD3A3}"
+    },
+    {
+      "name": "Fleet Tile",
+      "kind": "card",
+      "refersTo": "fleet-tile",
+      "description": "Flat swatch window in the hairline-ruled fleet grid; no shadow, no radius.",
+      "html": "<div class=\"ds-grid\"><button class=\"ds-tile\"><span class=\"ds-tag\">SIMULATED</span><h3>Air compressor</h3><span class=\"ds-r\">Temperature 71.4 °C</span></button><button class=\"ds-tile\"><span class=\"ds-tag\">SIMULATED</span><h3>Process chiller</h3><span class=\"ds-r\">Humidity 48.2 %</span></button></div>",
+      "css": ".ds-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#C6CFDB;border-top:1px solid #C6CFDB;font-family:Archivo,system-ui,sans-serif;font-variant-numeric:tabular-nums}.ds-tile{font:inherit;color:#14203A;border:0;background:#F7F9FB;padding:14px 18px;display:flex;flex-direction:column;gap:6px;position:relative;text-align:left;min-height:120px;cursor:pointer;transition:background .2s}.ds-tile:hover{background:#fff}.ds-tile:focus-visible{outline:3px solid #3D7BD9;outline-offset:2px}.ds-tile h3{font-weight:700;font-size:17px;margin:0;padding-right:96px}.ds-r{font-weight:700;font-size:16px}.ds-tag{position:absolute;top:14px;right:16px;font-weight:700;font-size:11px;letter-spacing:.08em;border:1px solid #9AA6B8;padding:3px 6px;color:#55627A}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Shade Card",
+    "overview": "A textile dye-house shade card: an indigo-dyed shell holds a pale card mount, and each machine is a swatch window cut into it. Undyed swatches are healthy; only trouble takes colour. The worst machine is mounted first and biggest. The system serves two readers who never share a screen: the maintenance head at a laptop or a wall TV in the control room, and the owner on a mid-range Android phone opening a push alert. Both must know which machine is in trouble in under a second, from across a room, without reading colour.\n\nDensity is operational, not decorative. Surfaces are flat panes separated by 1px hairline rules (the fleet grid draws its rules with a 1px gap over a `rule`-coloured ground), not by floating cards. The machine itself is the interface: every tile carries a live, drag-to-rotate 3D twin whose breaching part glows, and status is a word first, then an icon, a pattern and a colour.\n\nWeb (`frontend/src/index.css`) and Android (`ui/theme/Color.kt`) share the same hex tokens and the same face, Archivo. The status verdict is never computed in a client: `backend/health.py` returns `danger | check | ok | no_signal`, and both clients only draw it.",
+    "keyCharacteristics": [
+      "Indigo shell (top bar, ribbon, Floor view ground), pale card mount, white and tile panes.",
+      "Status = word + icon + pattern + colour, never colour alone.",
+      "Worst-first ordering everywhere: ribbon, fleet grid, Floor view.",
+      "Square corners on content; 4px only on controls.",
+      "Archivo throughout, tabular figures on by default.",
+      "One live 3D twin per machine, glowing only on the breaching part."
+    ],
+    "rules": [
+      {
+        "name": "The Only-Trouble-Is-Dyed Rule",
+        "body": "Red, amber, green and grey are status, nothing else. No decorative use, no brand accent in a status hue; chrome stays indigo, ink and paper.",
+        "section": "colors"
+      },
+      {
+        "name": "The Never-Colour-Alone Rule",
+        "body": "Every status mark carries the word (DANGER, CHECK, OK, NO SIGNAL), its icon (bar-in-disc, warning triangle, tick, cross) and its pattern (solid, hatch, outline, dots). The ribbon chip on Android is the one place the word is dropped for width; icon and pattern remain.",
+        "section": "colors"
+      },
+      {
+        "name": "The Backend-Owns-Status Rule",
+        "body": "Clients never derive status from raw readings. `backend/health.py` is the single source; `RANK` (danger, check, no_signal, ok) only orders it.",
+        "section": "colors"
+      },
+      {
+        "name": "The Across-The-Room Rule",
+        "body": "The status word is the largest type in its container. The worst machine's chip runs full-width at xl or xxl.",
+        "section": "typography"
+      },
+      {
+        "name": "The No-Soft-Card Rule",
+        "body": "Tiles, feed, side panel and chips never take a drop shadow. If it sits in the grid, it is flat.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** take every status from `backend/health.py` and draw it with `StatusChip`; add the word, icon and pattern, not just a colour.",
+      "**Do** order machines worst first (danger, check, no_signal, ok) in every list, ribbon and grid.",
+      "**Do** use the shared hex tokens; a new colour goes into both `index.css` and `Color.kt`.",
+      "**Do** separate panes with 1px rules over a Hairline ground.",
+      "**Do** follow the `part_` / `pin_` / `spin_` / `run` naming contract for any new machine model.",
+      "**Do** render new web twins through the shared scissored canvas in `stage.js`."
+    ],
+    "donts": [
+      "**Don't** use red, amber, green or grey for anything that is not machine status.",
+      "**Don't** fill with flat amber or flat green; CHECK is hatched, OK is outlined.",
+      "**Don't** put drop shadows on tiles, panels or chips; shadows are for floating layers only.",
+      "**Don't** round content corners; 4px is for controls.",
+      "**Don't** compute or override status in a client.",
+      "**Don't** present simulated data without its SIMULATED tag."
+    ]
+  }
+}

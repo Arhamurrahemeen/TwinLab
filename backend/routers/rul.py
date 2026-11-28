@@ -7,6 +7,7 @@ from fastapi import APIRouter, HTTPException
 
 from config import settings
 from db.influx import get_query_api
+from db.mongo import get_db
 
 log = logging.getLogger("twinlab.rul")
 router = APIRouter()
@@ -32,9 +33,10 @@ MIN_POINTS = 10
 STABLE_LABEL = "stable"
 
 
-def _estimate_rul(times_s: list, values: list, sensor: str) -> dict:
-    """Linear extrapolation to threshold breach. Returns hours or STABLE_LABEL."""
-    thresholds = THRESHOLDS.get(sensor)
+def _estimate_rul(times_s: list, values: list, sensor: str, bounds: dict | None = None) -> dict:
+    """Linear extrapolation to threshold breach. Returns hours or STABLE_LABEL.
+    bounds = the device's own {"min","max"} for this sensor; falls back to the generic table."""
+    thresholds = bounds if bounds and (bounds.get("max") is not None or bounds.get("min") is not None) else THRESHOLDS.get(sensor)
     if not thresholds or len(values) < MIN_POINTS:
         return {"sensor": sensor, "status": STABLE_LABEL, "hours_remaining": None, "trend": "unknown"}
 
@@ -55,10 +57,11 @@ def _estimate_rul(times_s: list, values: list, sensor: str) -> dict:
     trend = "rising" if slope > 0 else "falling"
 
     # Find which threshold is being approached
-    if slope > 0 and current < thresholds["max"]:
-        gap = thresholds["max"] - current
-    elif slope < 0 and current > thresholds["min"]:
-        gap = current - thresholds["min"]
+    hi, lo = thresholds.get("max"), thresholds.get("min")
+    if slope > 0 and hi is not None and current < hi:
+        gap = hi - current
+    elif slope < 0 and lo is not None and current > lo:
+        gap = current - lo
     else:
         return {"sensor": sensor, "status": STABLE_LABEL, "hours_remaining": None, "trend": trend}
 
@@ -111,11 +114,14 @@ from(bucket: "{settings.influx_bucket}")
                 epoch_s = float(ts)
             sensor_data[sensor].append((epoch_s, record.get_value()))
 
+    device = await get_db().devices.find_one({"device_id": device_id}, {"thresholds": 1}) or {}
+    bounds_by_sensor = device.get("thresholds") or {}
+
     results = []
     for sensor, points in sensor_data.items():
         points.sort(key=lambda x: x[0])
         times = [p[0] for p in points]
         values = [p[1] for p in points]
-        results.append(_estimate_rul(times, values, sensor))
+        results.append(_estimate_rul(times, values, sensor, bounds_by_sensor.get(sensor)))
 
     return results

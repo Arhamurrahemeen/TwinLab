@@ -32,3 +32,9 @@ export async function postChat(deviceId, message) {
   if (!res.ok) throw new Error(`POST /chat → ${res.status}`)
   return res.json()
 }
+
+export const getFleet = () => _get('/fleet')
+
+export const getHealth = (deviceId) => _get(`/devices/${deviceId}/health`)
+
+export const getFeed = (limit = 12) => _get(`/alerts?limit=${limit}`)

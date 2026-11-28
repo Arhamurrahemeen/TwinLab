@@ -2,18 +2,13 @@ package com.omnitex.twinlab.ui.common
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.unit.dp
-import com.omnitex.twinlab.ui.theme.TwinLabNavy
-import com.omnitex.twinlab.ui.theme.TwinLabTeal
+import androidx.compose.ui.graphics.Color
+import com.omnitex.twinlab.ui.theme.Indigo
 
-/** Shared app bar: consistent icon tint + a soft drop shadow instead of a flat divider line. */
+/** Shared indigo app bar — the Shade Card shell, same as the web dashboard's top bar. */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TwinLabTopBar(
@@ -26,11 +21,10 @@ fun TwinLabTopBar(
         navigationIcon = navigationIcon,
         actions = actions,
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = MaterialTheme.colorScheme.surface,
-            navigationIconContentColor = TwinLabNavy,
-            actionIconContentColor = TwinLabTeal,
-            titleContentColor = MaterialTheme.colorScheme.onSurface,
+            containerColor = Indigo,
+            navigationIconContentColor = Color.White,
+            actionIconContentColor = Color.White,
+            titleContentColor = Color.White,
         ),
-        modifier = Modifier.shadow(elevation = 3.dp, shape = RectangleShape, clip = false),
     )
 }

@@ -37,16 +37,19 @@ export default function ChatPanel({ device }) {
       <button
         className="chat-fab"
         onClick={() => setOpen(o => !o)}
-        title="TwinLab Assistant"
+        aria-label={open ? 'Close assistant' : 'Ask TwinLab'}
+        aria-expanded={open}
       >
-        {open ? '✕' : '💬'}
+        {open
+          ? <svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><path d="M4 4 16 16M16 4 4 16" stroke="currentColor" strokeWidth="2.2" /></svg>
+          : <><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-5A8 8 0 1 1 21 12Z" /></svg><span>Ask TwinLab</span></>}
       </button>
 
       {open && (
         <div className="chat-panel">
           <div className="chat-header">
             <span className="chat-title">TwinLab</span>
-            {device && <span className="chat-device">{device.name}</span>}
+            {device?.name && <span className="chat-device">{device.name}</span>}
             <span className="chat-sub">Urdu / English</span>
           </div>
 
@@ -80,7 +83,7 @@ export default function ChatPanel({ device }) {
               onKeyDown={onKey}
             />
             <button className="chat-send" onClick={send} disabled={loading || !input.trim()}>
-              ➤
+              Send
             </button>
           </div>
         </div>

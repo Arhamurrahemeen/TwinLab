@@ -9,44 +9,34 @@ import androidx.compose.ui.text.font.FontVariation
 import androidx.compose.ui.text.font.FontWeight
 import com.omnitex.twinlab.R
 
-private fun variableFont(resId: Int, weight: FontWeight) = Font(
-    resId = resId,
+private fun archivo(weight: FontWeight) = Font(
+    resId = R.font.archivo_variable,
     weight = weight,
     variationSettings = FontVariation.Settings(FontVariation.weight(weight.weight)),
 )
 
-/** Brand serif, matches the "TwinLab" wordmark — used for titles and the brand lockup. */
-val TwinLabBrandFont = FontFamily(
-    variableFont(R.font.lora_variable, FontWeight.Normal),
-    variableFont(R.font.lora_variable, FontWeight.Medium),
-    variableFont(R.font.lora_variable, FontWeight.SemiBold),
-    variableFont(R.font.lora_variable, FontWeight.Bold),
+/** Archivo: an industrial grotesque that stays legible at distance; same face as the web dashboard. */
+val Archivo = FontFamily(
+    archivo(FontWeight.Normal), archivo(FontWeight.Medium), archivo(FontWeight.SemiBold),
+    archivo(FontWeight.Bold), archivo(FontWeight.ExtraBold),
 )
 
-/** Body/data sans — used for everything else: sensor readings, labels, alerts. */
-val TwinLabBodyFont = FontFamily(
-    variableFont(R.font.jakarta_variable, FontWeight.Normal),
-    variableFont(R.font.jakarta_variable, FontWeight.Medium),
-    variableFont(R.font.jakarta_variable, FontWeight.SemiBold),
-    variableFont(R.font.jakarta_variable, FontWeight.Bold),
-)
-
-val TwinLabTypography = Typography().let { base ->
+val TwinLabTypography = Typography().let { b ->
     Typography(
-        displayLarge = base.displayLarge.copy(fontFamily = TwinLabBrandFont),
-        displayMedium = base.displayMedium.copy(fontFamily = TwinLabBrandFont),
-        displaySmall = base.displaySmall.copy(fontFamily = TwinLabBrandFont),
-        headlineLarge = base.headlineLarge.copy(fontFamily = TwinLabBrandFont),
-        headlineMedium = base.headlineMedium.copy(fontFamily = TwinLabBrandFont),
-        headlineSmall = base.headlineSmall.copy(fontFamily = TwinLabBrandFont),
-        titleLarge = base.titleLarge.copy(fontFamily = TwinLabBrandFont, fontWeight = FontWeight.SemiBold),
-        titleMedium = base.titleMedium.copy(fontFamily = TwinLabBrandFont, fontWeight = FontWeight.Medium),
-        titleSmall = base.titleSmall.copy(fontFamily = TwinLabBrandFont, fontWeight = FontWeight.Medium),
-        bodyLarge = base.bodyLarge.copy(fontFamily = TwinLabBodyFont),
-        bodyMedium = base.bodyMedium.copy(fontFamily = TwinLabBodyFont),
-        bodySmall = base.bodySmall.copy(fontFamily = TwinLabBodyFont),
-        labelLarge = base.labelLarge.copy(fontFamily = TwinLabBodyFont, fontWeight = FontWeight.SemiBold),
-        labelMedium = base.labelMedium.copy(fontFamily = TwinLabBodyFont),
-        labelSmall = base.labelSmall.copy(fontFamily = TwinLabBodyFont),
+        displayLarge = b.displayLarge.copy(fontFamily = Archivo, fontWeight = FontWeight.ExtraBold),
+        displayMedium = b.displayMedium.copy(fontFamily = Archivo, fontWeight = FontWeight.ExtraBold),
+        displaySmall = b.displaySmall.copy(fontFamily = Archivo, fontWeight = FontWeight.ExtraBold),
+        headlineLarge = b.headlineLarge.copy(fontFamily = Archivo, fontWeight = FontWeight.ExtraBold),
+        headlineMedium = b.headlineMedium.copy(fontFamily = Archivo, fontWeight = FontWeight.ExtraBold),
+        headlineSmall = b.headlineSmall.copy(fontFamily = Archivo, fontWeight = FontWeight.ExtraBold),
+        titleLarge = b.titleLarge.copy(fontFamily = Archivo, fontWeight = FontWeight.ExtraBold),
+        titleMedium = b.titleMedium.copy(fontFamily = Archivo, fontWeight = FontWeight.Bold),
+        titleSmall = b.titleSmall.copy(fontFamily = Archivo, fontWeight = FontWeight.Bold),
+        bodyLarge = b.bodyLarge.copy(fontFamily = Archivo),
+        bodyMedium = b.bodyMedium.copy(fontFamily = Archivo),
+        bodySmall = b.bodySmall.copy(fontFamily = Archivo),
+        labelLarge = b.labelLarge.copy(fontFamily = Archivo, fontWeight = FontWeight.Bold),
+        labelMedium = b.labelMedium.copy(fontFamily = Archivo, fontWeight = FontWeight.SemiBold),
+        labelSmall = b.labelSmall.copy(fontFamily = Archivo, fontWeight = FontWeight.SemiBold),
     )
 }

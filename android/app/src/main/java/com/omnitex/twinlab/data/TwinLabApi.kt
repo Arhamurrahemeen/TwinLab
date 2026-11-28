@@ -28,6 +28,14 @@ class TwinLabApi(private val baseUrl: String) {
     suspend fun getDevices(): List<Device> =
         client.get("$baseUrl/devices").body()
 
+    /** Every machine with its health verdict, worst first. */
+    suspend fun getFleet(): List<Device> =
+        client.get("$baseUrl/fleet").body()
+
+    /** One machine's verdict including the fault trend. */
+    suspend fun getHealth(id: String): Device =
+        client.get("$baseUrl/devices/$id/health").body()
+
     suspend fun getLastKnown(id: String): Map<String, Reading> =
         client.get("$baseUrl/devices/$id/last-known").body()
 

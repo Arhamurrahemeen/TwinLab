@@ -4,124 +4,85 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.omnitex.twinlab.data.Alert
 import com.omnitex.twinlab.data.Device
-import com.omnitex.twinlab.data.DeviceSocket
 import com.omnitex.twinlab.data.HistoryPoint
 import com.omnitex.twinlab.data.TwinLabApi
-import com.omnitex.twinlab.data.WsMessage
-import com.omnitex.twinlab.domain.Health
-import com.omnitex.twinlab.domain.TwinMapping
-import com.omnitex.twinlab.domain.TwinState
-import com.omnitex.twinlab.domain.healthStatus
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
+/**
+ * One machine: polls GET /devices/{id}/health (verdict + fault trend) and the
+ * selected sensor's last hour. The status shown is the backend's, never re-derived here.
+ */
 class AssetDetailViewModel(
     private val deviceId: String,
     private val apiFlow: StateFlow<TwinLabApi?>,
-    private val baseUrlFlow: StateFlow<String?>,
+    @Suppress("unused") private val baseUrlFlow: StateFlow<String?>,
 ) : ViewModel() {
 
     data class DetailUiState(
         val device: Device? = null,
-        val readings: Map<String, Double> = emptyMap(),
-        val history: Map<String, List<HistoryPoint>> = emptyMap(),
+        val selectedSensor: String? = null,
+        val history: List<HistoryPoint> = emptyList(),
         val alerts: List<Alert> = emptyList(),
-        val health: Health = Health.UNKNOWN,
-        val lastMsgAgeMs: Long = Long.MAX_VALUE,
+        val stale: Boolean = false,
         val error: String? = null,
     )
 
     private val _state = MutableStateFlow(DetailUiState())
     val state: StateFlow<DetailUiState> = _state.asStateFlow()
 
-    val twin: StateFlow<TwinState> = _state
-        .map { s ->
-            // Until thresholds are known, every reading looks in-range — keep the twin neutral instead.
-            if (s.device == null) TwinMapping.stateFrom(emptyMap(), emptyMap(), s.lastMsgAgeMs)
-            else TwinMapping.stateFrom(s.readings, s.device.thresholds, s.lastMsgAgeMs)
-        }
-        .stateIn(
-            viewModelScope,
-            SharingStarted.Eagerly,
-            TwinMapping.stateFrom(emptyMap(), emptyMap(), Long.MAX_VALUE),
-        )
-
-    private var lastMsgAt: Long = 0L
-
     init {
-        loadStatic()
-        connectSocket()
-        startAgeTicker()
+        viewModelScope.launch {
+            while (isActive) {
+                loadHealth()
+                delay(3_000)
+            }
+        }
+        viewModelScope.launch {
+            while (isActive) {
+                loadHistory()
+                loadAlerts()
+                delay(10_000)
+            }
+        }
     }
 
-    private fun recomputeHealth(s: DetailUiState): Health =
-        s.device?.let { healthStatus(s.readings, it.thresholds) } ?: Health.UNKNOWN
+    fun select(sensor: String) {
+        _state.update { it.copy(selectedSensor = sensor, history = emptyList()) }
+        viewModelScope.launch { loadHistory() }
+    }
 
-    private fun loadStatic() = viewModelScope.launch {
-        val api = apiFlow.value ?: run {
-            _state.update { it.copy(error = "No backend configured") }
-            return@launch
-        }
+    fun refresh() = viewModelScope.launch { loadHealth(); loadHistory(); loadAlerts() }
+
+    private suspend fun loadHealth() {
+        val api = apiFlow.value ?: run { _state.update { it.copy(error = "No backend configured") }; return }
         try {
-            val device = api.getDevices().find { it.device_id == deviceId }
-            // Publish the device (name + thresholds) before the slower alert/history fetches.
-            _state.update { st ->
-                val next = st.copy(device = device, error = null)
-                next.copy(health = recomputeHealth(next))
+            val d = api.getHealth(deviceId)
+            val first = _state.value.selectedSensor == null
+            _state.update {
+                it.copy(device = d, stale = false, error = null,
+                    selectedSensor = it.selectedSensor ?: d.health?.sensors?.firstOrNull()?.sensor)
             }
-            val alerts = runCatching { api.getDeviceAlerts(deviceId, 50) }.getOrDefault(emptyList())
-            val history = device?.sensors.orEmpty().associateWith { sensor ->
-                runCatching { api.getReadings(deviceId, sensor, limit = 60) }.getOrDefault(emptyList())
-            }
-            _state.update { st ->
-                val next = st.copy(device = device, alerts = alerts, history = history, error = null)
-                next.copy(health = recomputeHealth(next))
-            }
+            if (first) loadHistory()
         } catch (e: Exception) {
-            _state.update { it.copy(error = e.message ?: "Failed to load device") }
+            _state.update { if (it.device != null) it.copy(stale = true) else it.copy(error = e.message ?: "Failed to load machine") }
         }
     }
 
-    private fun connectSocket() = viewModelScope.launch {
-        val base = baseUrlFlow.value ?: return@launch
-        val socket = DeviceSocket(base, deviceId)
-        try {
-            socket.messages().collect { msg ->
-                when (msg) {
-                    is WsMessage.Live -> {
-                        lastMsgAt = System.currentTimeMillis()
-                        _state.update { st ->
-                            val readings = st.readings + (msg.reading.sensor to msg.reading.value)
-                            val next = st.copy(readings = readings, lastMsgAgeMs = 0)
-                            next.copy(health = recomputeHealth(next))
-                        }
-                    }
-                    is WsMessage.AlertMsg ->
-                        _state.update { it.copy(alerts = listOf(msg.alert) + it.alerts) }
-                }
-            }
-        } finally {
-            socket.close()
-        }
+    private suspend fun loadHistory() {
+        val api = apiFlow.value ?: return
+        val sensor = _state.value.selectedSensor ?: return
+        runCatching { api.getReadings(deviceId, sensor, limit = 120, rangeHours = 1) }
+            .onSuccess { pts -> _state.update { if (it.selectedSensor == sensor) it.copy(history = pts) else it } }
     }
 
-    private fun startAgeTicker() = viewModelScope.launch {
-        while (isActive) {
-            delay(1_000)
-            if (lastMsgAt > 0) {
-                val age = System.currentTimeMillis() - lastMsgAt
-                _state.update { it.copy(lastMsgAgeMs = age) }
-            }
-        }
+    private suspend fun loadAlerts() {
+        val api = apiFlow.value ?: return
+        runCatching { api.getDeviceAlerts(deviceId, 20) }.onSuccess { a -> _state.update { it.copy(alerts = a) } }
     }
-
-    fun refresh() = loadStatic()
 }

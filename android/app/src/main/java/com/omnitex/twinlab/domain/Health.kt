@@ -1,26 +1,21 @@
 package com.omnitex.twinlab.domain
 
-import com.omnitex.twinlab.data.Bounds
-
-enum class Health { OK, WARNING, CRITICAL, UNKNOWN }
-
-/** Sensors whose max-breach the backend treats as critical (backend/alerts.py _CRITICAL_MAX). */
-private val CRITICAL_SENSORS = setOf("temperature", "load_current", "vibration")
-
 /**
- * Mirrors backend/alerts.py evaluate(): a reading past max/min on a critical
- * sensor → CRITICAL, on any other thresholded sensor → WARNING; a sensor with
- * no threshold entry is ignored; no readings at all → UNKNOWN.
+ * Machine status as the backend decides it (backend/health.py). The app only
+ * parses and draws it, so the phone can never disagree with the dashboard.
  */
-fun healthStatus(readings: Map<String, Double>, thresholds: Map<String, Bounds>): Health {
-    if (readings.isEmpty()) return Health.UNKNOWN
-    var worst = Health.OK
-    for ((sensor, value) in readings) {
-        val b = thresholds[sensor] ?: continue
-        val breached = (b.max != null && value > b.max) || (b.min != null && value < b.min)
-        if (!breached) continue
-        if (sensor in CRITICAL_SENSORS) return Health.CRITICAL
-        worst = Health.WARNING
+enum class Status(val word: String, val rank: Int) {
+    DANGER("DANGER", 0),
+    CHECK("CHECK", 1),
+    NO_SIGNAL("NO SIGNAL", 2),
+    OK("OK", 3);
+
+    companion object {
+        fun parse(s: String?): Status = when (s) {
+            "danger" -> DANGER
+            "check" -> CHECK
+            "ok" -> OK
+            else -> NO_SIGNAL
+        }
     }
-    return worst
 }

@@ -27,7 +27,7 @@ RUN_HOURS_FLUSH_S = 60  # how often to batch-persist in-memory run-hours to Mong
 VIB_RUNNING_G  = 0.03
 
 # Max-breach on these sensors → critical; everything else → warning
-_CRITICAL_MAX = {"load_current", "temperature", "vibration"}
+CRITICAL_MAX = {"load_current", "temperature", "vibration"}
 
 # ── Module-level state (GIL-safe for CPython dict reads/replacements) ───
 _threshold_cache: dict = {}   # {device_id: {sensor: {"min": v|None, "max": v|None}}}
@@ -124,7 +124,7 @@ def reset_state() -> None:
 
 def _severity(sensor: str, side: str) -> str:
     """side = 'min' | 'max'"""
-    if side == "max" and sensor in _CRITICAL_MAX:
+    if side == "max" and sensor in CRITICAL_MAX:
         return "critical"
     return "warning"
 
@@ -311,7 +311,7 @@ if __name__ == "__main__":
     # 1. Below threshold — no alert.
     assert evaluate("TL-SELFTEST", "vibration", 0.05, "g", {}) is None
 
-    # 2. Above threshold — critical threshold alert (vibration is in _CRITICAL_MAX).
+    # 2. Above threshold — critical threshold alert (vibration is in CRITICAL_MAX).
     a = evaluate("TL-SELFTEST", "vibration", 0.20, "g", {})
     assert a is not None and a["severity"] == "critical" and a["alert_type"] == "threshold"
 

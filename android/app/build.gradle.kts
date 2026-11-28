@@ -61,6 +61,10 @@ dependencies {
 
     implementation("androidx.datastore:datastore-preferences:1.1.1")
 
+    // 3D digital twins (Filament). 2.2.x is the last line that builds on AGP 8 / Kotlin 2.0 /
+    // compileSdk 35; 3.x+ needs AGP 9 and compileSdk 37.
+    implementation("io.github.sceneview:sceneview:2.2.1")
+
     // Firebase Cloud Messaging. The AARs are harmless without google-services.json;
     // push actually works once Arham adds the JSON and uncomments the
     // `com.google.gms.google-services` plugin (this file + the root build file).

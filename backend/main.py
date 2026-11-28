@@ -11,12 +11,14 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 import alerts as alert_engine
+import health
 import push
 from config import settings
 from db.influx import close_influx
 from db.mongo import close_mongo, connect_mongo, get_db
 from routers import devices, readings, ws, chat, rul, sim as sim_router
 from routers import alerts as alerts_router
+from routers import fleet as fleet_router
 from routers import push as push_router
 from routers.ws import manager
 
@@ -28,8 +30,8 @@ log = logging.getLogger("twinlab")
 
 _loop: asyncio.AbstractEventLoop = None
 
-# Last-known reading per device+sensor — survives InfluxDB/MQTT gaps
-_last_known: dict = {}  # {device_id: {sensor: {value, unit, ts}}}
+# Last-known reading per device+sensor lives in health.py (it owns the verdict built from it)
+_last_known = health.last_known
 
 
 def _parse_topic(topic: str):
@@ -57,6 +59,7 @@ def _on_mqtt_message(client, userdata, msg):
             "value": data["value"],
             "unit": data["unit"],
             "ts": data["ts"],
+            "rx": int(time.time() * 1000),   # server receive time: ESP32 ts may not be wall-clock
         }
         if _loop:
             asyncio.run_coroutine_threadsafe(manager.broadcast(device_id, data), _loop)
@@ -167,6 +170,7 @@ async def discover_devices():
     return sorted(set(_last_known) - registered)
 
 
+app.include_router(fleet_router.router,  tags=["fleet"])   # before devices: /devices/{id}/health
 app.include_router(devices.router,       prefix="/devices", tags=["devices"])
 app.include_router(readings.router,      prefix="/devices", tags=["readings"])
 app.include_router(alerts_router.router, prefix="/devices", tags=["alerts"])
@@ -178,7 +182,7 @@ app.include_router(push_router.router,   prefix="/push",    tags=["push"])
 
 
 @app.get("/health", tags=["system"])
-async def health():
+async def health_check():
     return {"status": "ok"}
 
 

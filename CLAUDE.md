@@ -29,13 +29,13 @@
 |---|---|
 | Hardware (real) | ESP32 + DHT22 (temp/humidity) + MPU6050 (accel/vibration). Firmware is **ESP-IDF 6.x** (`idf.py`), lives in `firmware/twinlab_node_v1/`. Publishes `temperature`, `humidity`, `accel_x/y/z`, `vibration` on the MQTT contract via a hand-rolled publish-only MQTT-over-TCP client (no esp-mqtt dependency). **Device ID is MAC-derived at boot** (Phase 15) — no per-board `secrets.h` edit; the bench unit currently publishes as `TL-B49244`, flashed and verified live. **No fuel sensor, no CT clamp owned yet** — fuel-theft and load-current stay simulator-only until those parts are bought. |
 | Messaging | MQTT via **Mosquitto** |
-| Buyer app | Native **Kotlin + Jetpack Compose** (Material 3), `android/`, single Gradle module, package `com.omnitex.twinlab`. Ktor client (REST + WebSocket), kotlinx.serialization, DataStore. Asset dashboard + per-asset live detail + Compose-Canvas digital twin. Talks to the backend over the LAN (base URL set in a Settings screen). JVM unit tests only. |
+| Buyer app | Native **Kotlin + Jetpack Compose** (Material 3), `android/`, single Gradle module, package `com.omnitex.twinlab`. Ktor client (REST + WebSocket), kotlinx.serialization, DataStore. Machine list + per-machine detail with **3D digital twins via SceneView 2.2.1 (Filament)**, loading the shared `.glb` models from `assets/models/`. Status comes from the backend verdict (`GET /fleet`, `GET /devices/{id}/health`), never re-derived on the phone. Talks to the backend over the LAN (base URL set in a Settings screen). JVM unit tests only. |
 | Time-series DB | **InfluxDB 2.7** (sensor readings) |
 | Document DB | **MongoDB 7.0** (device registry, thresholds, alerts, sim control) |
 | Backend | **FastAPI** (Python) |
 | AI — chat | **Groq** `llama-3.3-70b-versatile` (Urdu / Roman Urdu / English) |
 | Alerts | **Firebase Cloud Messaging** push to the TwinLab Android app, bilingual (EN + Roman Urdu) + rupee-anchored. Broadcast to every registered device token (`push_tokens` collection); `backend/push.py` + `backend/routers/push.py`. Graceful no-op when `fcm_credentials_file` is unset. Twilio/WhatsApp retired in Phase 14. |
-| Frontend | **React + Vite** (recharts) |
+| Frontend | **React + Vite** + **three.js** (3D twins: one scissored WebGL canvas for every twin; models in `frontend/src/twin/models.js`, exported to `.glb` for web + Android by `npm run models`) |
 | Sim control | Separate **Vite** mini-app, same FastAPI backend |
 | Deploy | Docker Compose (dev) |
 
@@ -52,7 +52,8 @@ docker compose up -d                                   # Mosquitto + InfluxDB + 
 .venv\Scripts\python ingestion.py                      # MQTT -> InfluxDB
 .venv\Scripts\python simulator.py                      # registry-driven sim publisher
 cd backend && ..\.venv\Scripts\uvicorn main:app --reload --host 0.0.0.0 --port 8000
-cd frontend && npm run dev                              # dashboard  http://localhost:5173
+cd frontend && npm run dev                              # dashboard  http://localhost:5173  (#/floor = TV view)
+cd frontend && npm run models                           # only after editing src/twin/models.js: rewrites the .glb files
 cd sim-control && npm run dev                           # sim control mini-app (Phase D+)
 ```
 
@@ -203,6 +204,7 @@ History: `phase-1..4` = original build (done). v2 rebuild continues as **phase-5
 | 17 | `phase/phase-17.md` | Digital twin visual redesign: flat rounded-rect + oversized fan → isometric 3-face shading, neon status rim, properly-inset 5-blade fan. Ported from a Claude Design mockup into `TwinView.kt`, same `TwinState` contract. Dropped a duplicate "SIGNAL LOST" text (`AssetDetailScreen` already shows it). | ✅ |
 | 18 | `phase/phase-18.md` | App-wide theme refresh: shared `TwinLabTopBar` (shadow + tinted icons) across all 4 screens, card-based asset list + alert rows, glow-ring status dots, warmer background. Launcher icon artwork scaled to 80% for breathing room. | ✅ |
 | 19 | `phase/phase-19.md` | Twin shake fix: simulator gets a real g-scale `vibration` branch (was publishing ~53 "g" fallback), sim-control Vibration slider, `TwinMapping` shake gain/cap retuned to g-scale. | ⬜ |
+| 20 | `phase/phase-20.md` | Shade Card redesign: backend `health.py` is the one status verdict (DANGER / CHECK / OK / NO SIGNAL + fault trend), `/fleet` + `/devices/{id}/health`. Web dashboard and Android app rebuilt around live 3D twins of every machine; status as word + icon + pattern, worst machine first; TV floor view. Design system in `DESIGN.md`, product truth in `PRODUCT.md`. | ✅ |
 
 Update the Status column (⬜ → ✅) as each phase's "Actually achieved" is written. Use ⏸ for phases explicitly deferred (scope moved elsewhere or postponed to a later cycle).
 
@@ -222,4 +224,4 @@ Remote: `https://github.com/Arhamurrahemeen/TwinLab-AI.git`
 
 ---
 
-*Last updated: 2026-10-19 (Phase 19 in progress) — docs synced with vault: all incubation tracks closed (none selected), Arham is the sole founder, Phase 16 vibration alert + run-hours is live truth, alerts go only through FCM push to the TwinLab Android app (no Twilio). End-to-end push verified on a physical phone 2026-09-13 (`phase/rd_benchmarks.md`).*
+*Last updated: 2026-11-28 (Phase 20 Shade Card redesign shipped; Phase 19 file still open) — docs synced with vault: all incubation tracks closed (none selected), Arham is the sole founder, Phase 16 vibration alert + run-hours is live truth, alerts go only through FCM push to the TwinLab Android app (no Twilio). End-to-end push verified on a physical phone 2026-09-13 (`phase/rd_benchmarks.md`).*
